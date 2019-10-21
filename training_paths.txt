@@ -1,0 +1,4 @@
+/home/miguel/cmpe_258/cmpe-258-group-project/images/train2019/CARS_train2019_0000001.jpg
+/home/miguel/cmpe_258/cmpe-258-group-project/images/train2019/CARS_train2019_0000002.jpg
+/home/miguel/cmpe_258/cmpe-258-group-project/images/train2019/CARS_train2019_0000003.jpg
+/home/miguel/cmpe_258/cmpe-258-group-project/images/train2019/CARS_train2019_0000004.jpg
