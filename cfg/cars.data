@@ -1,5 +1,5 @@
-classes=12
-train=/home/miguel/cmpe_258/cmpe-258-group-project/training_paths.txt
-#valid=/home/miguel/cmpe_258/cmpe-258-group-project/training_paths.txt
-names=./data/cars_classes.names
-backup=/home/miguel/cmpe_258/cmpe-258-group-project/backup
+classes = 12
+train = /home/miguel/cmpe_258/cmpe-258-group-project/training_paths.txt
+valid = /home/miguel/cmpe_258/cmpe-258-group-project/training_paths.txt
+names = /home/miguel/cmpe_258/cmpe-258-group-project/data/cars_classes.names
+backup = /home/miguel/cmpe_258/cmpe-258-group-project/backup
