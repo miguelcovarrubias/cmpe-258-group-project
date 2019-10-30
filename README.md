@@ -6,7 +6,7 @@
 * width = x2 - x1
 * height = y2 - y1 
 * x = ((x1 - x1)/2) + x1 
-* x = ((x1 - x1)/2) + x1 
+* y = ((y1 - y1)/2) + y1 
 
 * attention: <x> <y> - are center of rectangle (are not top-left corner)  
 
