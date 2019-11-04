@@ -182,19 +182,25 @@ def main():
 	#check folder exist
 	if os.path.exists(PATHS_FOLDER):
 		file_list = os.listdir(PATHS_FOLDER)
-
+		label = ""
 
 		for file in file_list:
-			filename=""
-			label = ""
 			# print(file)
 			for part in parts_order.keys():
+				print("++++++++++++++++++++++++++++++++++")
+				print("file: {}".format(file))
+				print("part: {}".format(part))
+				print("++++++++++++++++++++++++++++++++++")
 				if part in file:
 					label = parts_order.get(part)
-					print(label)
+					break
+				else:
+					continue
 
+			print("-----------------------------------")
+			print(label)
+			print("-----------------------------------")
 			paths = open_file(PATHS_FOLDER+'/'+file)
-
 			download_images(paths, counter, label)
 
 		# print(paths)
