@@ -168,9 +168,11 @@ def download_images(paths, total, category):
 
 			print("error found {}".format(str(e)))
 
+	return total
+
 def main():
 	""" Main program """
-	counter = 1
+	counter = 0
 	if os.path.exists(CAR_CLASSES_NAMES_PATH):
 		car_parts = open_file(CAR_CLASSES_NAMES_PATH)
 		parts_order = create_parts_order(car_parts)
@@ -201,7 +203,7 @@ def main():
 			print(label)
 			print("-----------------------------------")
 			paths = open_file(PATHS_FOLDER+'/'+file)
-			download_images(paths, counter, label)
+			counter = download_images(paths, counter, label)
 
 		# print(paths)
 	else:
