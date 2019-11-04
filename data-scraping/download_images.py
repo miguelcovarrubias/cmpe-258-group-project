@@ -12,6 +12,10 @@ PATHS_FOLDER = "paths"
 CAR_CLASSES_NAMES_PATH = "../data/cars_classes.names"
 PICTURE_PATH = "../images/train2019"
 LABEL_PATH = "../labels/train2019"
+PIC_WIDTH = 0.99
+PIC_HEIGHT = 0.99
+PIC_MIDDLE_BOX_X = 0.5
+PIC_MIDDLE_BOX_Y = 0.5
 
 
 car_parts = {
@@ -88,10 +92,10 @@ def save_picture(r, total, category):
 	label_name = "CARS_train2019_{}.txt".format(get_number(total))
 	print(picture_name)
 	if os.path.exists("{}".format(PICTURE_PATH)):
-		p = os.path.sep.join(PICTURE_PATH, picture_name)
+		p = os.path.sep.join([PICTURE_PATH, picture_name])
 	else:
 		os.mkdir("{}".format(PICTURE_PATH))
-		p = os.path.sep.join(PICTURE_PATH, picture_name)
+		p = os.path.sep.join([PICTURE_PATH, picture_name])
 
 	f = open(p, "wb")
 	f.write(r.content)
@@ -101,72 +105,19 @@ def save_picture(r, total, category):
 
 	if valid:
 		if os.path.exists("{}".format(LABEL_PATH)):
-			q = os.path.sep.join(LABEL_PATH, label_name)
+			q = os.path.sep.join([LABEL_PATH, label_name])
 		else:
 			os.mkdir("{}".format(LABEL_PATH))
-			q = os.path.sep.join(LABEL_PATH, label_name)
+			q = os.path.sep.join([LABEL_PATH, label_name])
 
 		f = open(q, "wb")
-		f.write("{} {} {} {}".format(category, ))
+		f.write("{} {} {} {} {}".format(category, PIC_MIDDLE_BOX_X, PIC_MIDDLE_BOX_Y, PIC_WIDTH, PIC_WIDTH).encode())
 		f.close()
 
-	#update the counter
-	print("[INFO] downloaded: {}".format(p))
+		#update the counter
+		print("[INFO] downloaded: {}".format(p))
+		print("[INFO] label created: {}".format(q))
 
-# # loop the URLs
-# for url in rows:
-# 	try:
-# 		# try to download the image
-# 		#r = requests.get(url, timeout=60)
-# 		r = make_request(url, 60)
-# 		if r == 1:
-# 			raise Exception('retry')
-# 		else:
-# 			# save the image to disk
-# 			save_pictures(r, total)
-# 			total += 1
-#
-# 	# handle if any exceptions are thrown during the download process
-# 	except Exception as e:
-# 		if e.args == 'retry':
-# 			for x in range(1,4,1):
-# 				r = make_request(url, 60 * x)
-# 				if r == 1:
-# 					continue
-# 				else:
-# 					save_pictures(r, total)
-# 					total += 1
-# 					break
-# 		else:
-# 			print("[INFO] error downloading {}...skipping".format(str(e)))
-#
-# 		print("error found {}".format(str(e)))
-#
-# # loop over the image paths we just downloaded
-# for imagePath in paths.list_images(args["output"]):
-# 	# initialize if the image should be deleted or not
-# 	delete = False
-#
-# 	# try to load the image
-# 	try:
-# 		image = cv2.imread(imagePath)
-#
-# 		# if the image is `None` then we could not properly load it
-# 		# from disk, so delete it
-# 		if image is None:
-# 			print("None")
-# 			delete = True
-#
-# 	# if OpenCV cannot load the image then the image is likely
-# 	# corrupt so we should delete it
-# 	except:
-# 		print("Except")
-# 		delete = True
-#
-# 	# check to see if the image should be deleted
-# 	if delete:
-# 		print("[INFO] deleting {}".format(imagePath))
-# 		os.remove(imagePath)
 
 def open_file(file):
 	# grab the list of URLs from the input file, then initialize the
@@ -197,7 +148,7 @@ def download_images(paths, total, category):
 				raise Exception('retry')
 			else:
 				# save the image to disk
-				save_picture(r.content, total, category)
+				save_picture(r, total, category)
 				total += 1
 
 		# handle if any exceptions are thrown during the download process
@@ -208,7 +159,7 @@ def download_images(paths, total, category):
 					if r == 1:
 						continue
 					else:
-						save_picture(r.content, total)
+						save_picture(r, total)
 						total += 1
 						break
 
@@ -219,6 +170,7 @@ def download_images(paths, total, category):
 
 def main():
 	""" Main program """
+	counter = 1
 	if os.path.exists(CAR_CLASSES_NAMES_PATH):
 		car_parts = open_file(CAR_CLASSES_NAMES_PATH)
 		parts_order = create_parts_order(car_parts)
@@ -231,7 +183,7 @@ def main():
 	if os.path.exists(PATHS_FOLDER):
 		file_list = os.listdir(PATHS_FOLDER)
 
-		counter = 10
+
 		for file in file_list:
 			filename=""
 			label = ""
@@ -244,15 +196,6 @@ def main():
 			paths = open_file(PATHS_FOLDER+'/'+file)
 
 			download_images(paths, counter, label)
-			#create the file_name for the picture
-
-			#create the filename for the label
-
-			#create the label_file
-
-			#save it in the right location
-
-
 
 		# print(paths)
 	else:
